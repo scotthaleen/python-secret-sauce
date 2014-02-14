@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
+from generators import numbers
+
 '''
-  file IO functions
+file IO functions
 '''
 def slurp(filePath):
     # read contents of file to string
@@ -29,24 +31,29 @@ def rm(filePath):
         os.remove(filePath)
 
 def partition(l, n):
-    """ Yield successive n-sized partitions from l.
-        >>> list(partition(range(1,10),2))
-       [[1, 2], [3, 4], [5, 6], [7, 8], [9]]
+    """ 
+    Yield successive n-sized partitions from l.
+    >>> list(partition(range(1,10),2))
+    [[1, 2], [3, 4], [5, 6], [7, 8], [9]]
     """
     for i in xrange(0, len(l), n):
         yield l[i:i+n]
 
 class rollin(object):
     '''
-      rolling file writer 
+    rolling file writer 
+    this is a poor mans rolling file appender
+    TODO maybe accept a generator function for incrementing file names
+    must be infinite or a cycle
     '''
     def __init__(self, directory, filename, limit_megabytes=10):
         self.directory = directory
         self.filename = filename
         self.limit_bytes = limit_megabytes*1024*1024
+        self.gen = numbers()
 
     def open(self):
-        sz = "%s/%s%s" % (self.directory, , self.filename)
+        sz = "%s/%s%s" % (self.directory, self.gen.next() , self.filename)
         self.f = open(sz, 'a+b')
 
     def __enter__(self):
@@ -55,7 +62,6 @@ class rollin(object):
 
     def __exit__(self, type, value, traceback):
         self.close()
-        return True
 
     def close(self):
         self.f.close()
@@ -64,4 +70,4 @@ class rollin(object):
         if self.f.tell() > self.limit_bytes:
             self.close()
             self.open()
-            self.f.write(data)
+        self.f.write(data)
