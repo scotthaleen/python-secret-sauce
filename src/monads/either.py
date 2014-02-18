@@ -15,21 +15,18 @@ class Either(object):
     def right(self):
         raise NotImplementedError( "No value present" )
 
-class LeftProjection(Either):
+#LeftProjection
+class Left(Either):
     def __init__(self, value):
         self.value = value
-
     #overrides
     def isLeft(self): return True
-    def left(self): return self.value;
+    def left(self): return self.value
 
-class RightProjection(Either):
+#RightProjection        
+class Right(Either):
     def __init__(self, value):
         self.value = value
-
     #overrides
     def isRight(self): return True
-    def right(self): return self.value;
-
-def Left(value): return LeftProjection(value)
-def Right(value): return RightProjection(value)
+    def right(self): return self.value

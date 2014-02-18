@@ -13,6 +13,13 @@ def head(arr):
 def tail(arr):
     return arr[1:]
 
+def last(arr):
+    l = arr[-1:]
+    if l:
+        return l[0]
+    else:
+        return None
+
 def juxt(*funs):
     ''' juxtaposition '''
     return lambda x: [fn(x) for fn in funs]
@@ -46,5 +53,36 @@ def dec(n):
 def utf8(sz):
     return sz.encode('utf-8')
 
+# from julia
+def mapreduce(mapFn, reduceFn, items):
+    return reduce(reduceFn, map(mapFn, items))
+
+
+def juxt_all(predicates, obj):
+    '''
+    run a juxtaposition of predicates against an object return True 
+    if all pass, exits immediately when first False is encountered
+    '''
+    def genfn():
+        for p in predicates:
+            yield p(obj)
+    for x in genfn():
+        if not x:
+            return False
+    return True
+
+def juxt_any(predicates, obj):
+    '''
+    reverse of juxt_all - returns immediately on first True
+    returns False if no predicates passn
+    '''
+    def genfn():
+        for p in predicates:
+            yield p(obj)
+    for x in genfn():
+        if x:
+            return True
+    return False
+
 # return a snowman
-def snowman(): return '☃' 
+def snowman(): return u'☃' 

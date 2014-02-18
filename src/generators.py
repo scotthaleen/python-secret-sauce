@@ -26,3 +26,5 @@ def alphanumeric():
         yield c
     for c in (x for x in az()):
         yield c
+
+

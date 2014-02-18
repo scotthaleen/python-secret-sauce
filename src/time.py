@@ -2,8 +2,9 @@
 import datetime
 import time
 
-def fmtNow():
-    return datetime.datetime.utcnow().strftime('%Y%m%d%H%M%S')
+
+def fmtNow(pattern='%Y%m%d%H%M%S'):
+    return datetime.datetime.utcnow().strftime(pattern)
 
 def fmtNowISO():
     return datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S')

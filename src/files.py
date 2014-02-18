@@ -46,14 +46,14 @@ class rollin(object):
     TODO maybe accept a generator function for incrementing file names
     must be infinite or a cycle
     '''
-    def __init__(self, directory, filename, limit_megabytes=10):
+    def __init__(self, directory, filename, extension, limit_megabytes=10):
         self.directory = directory
         self.filename = filename
         self.limit_bytes = limit_megabytes*1024*1024
         self.gen = numbers()
 
     def open(self):
-        sz = "%s/%s%s" % (self.directory, self.gen.next() , self.filename)
+        sz = "%s/%s_%s.%s" % (self.directory, self.filename, self.gen.next(), self.extension)
         self.f = open(sz, 'a+b')
 
     def __enter__(self):
