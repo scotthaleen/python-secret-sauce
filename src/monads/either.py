@@ -7,7 +7,7 @@
 """
 class Either(object):
     def __init__(self):
-        raise NotImplementedError( "Should have implemented this" )
+        raise NotImplementedError( "Should not have instantiated this" )
     def isLeft(self): return False
     def left(self):
         raise NotImplementedError( "No value present" )
