@@ -20,6 +20,11 @@ def last(arr):
     else:
         return None
 
+def nth(arr, i, out_of_range=None):
+    if len(arr) >= i:
+        return arr[i]
+    return out_of_range
+
 def juxt(*funs):
     ''' juxtaposition '''
     return lambda x: [fn(x) for fn in funs]
@@ -35,6 +40,13 @@ def dictGet(arraypath, j, default=None):
     else:
         return dictGet(arraypath[1:], j.get(arraypath[0]), default) \
             if j.get(arraypath[0]) else default
+
+def reorganizeList(lst, idxs, out_of_range=None):
+    # functions for getting a specific index 
+    n = lambda i: lambda l: nth(l, i, out_of_range)
+    # function to apply all index functions to a list
+    fn = juxt(*map(n, idxs))
+    return fn(lst)
 
 # TODO
 #def curry(fn):
@@ -56,7 +68,6 @@ def utf8(sz):
 # from julia
 def mapreduce(mapFn, reduceFn, items):
     return reduce(reduceFn, map(mapFn, items))
-
 
 def juxt_all(predicates, obj):
     '''
