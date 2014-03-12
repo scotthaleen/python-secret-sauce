@@ -10,6 +10,9 @@ def noop(): pass
 def head(arr):
     return arr[0]
 
+def empty(arr):
+    return not arr
+
 def tail(arr):
     return arr[1:]
 
