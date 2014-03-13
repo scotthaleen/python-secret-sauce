@@ -30,7 +30,7 @@ def nth(arr, i, out_of_range=None):
 
 def juxt(*funs):
     ''' juxtaposition '''
-    return lambda x: [fn(x) for fn in funs]
+    return lambda *args: [fn(*args) for fn in funs]
 
 #
 # TODO
