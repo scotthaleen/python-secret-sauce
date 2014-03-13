@@ -32,17 +32,24 @@ def juxt(*funs):
     ''' juxtaposition '''
     return lambda x: [fn(x) for fn in funs]
 
-def dictGet(arraypath, j, default=None):
+#
+# TODO
+# take array as the path in a nested dict and update that item with
+# the new value
+# def updateIn(d, arraypath, value):
+#
+
+def getIn(d, arraypath, default=None):
     '''
     Take array as the path to a dict item and return the item or default if path does not exist.
     '''
-    if not j:
-        return j 
+    if not d:
+        return d 
     if not arraypath:
-        return j
+        return d
     else:
-        return dictGet(arraypath[1:], j.get(arraypath[0]), default) \
-            if j.get(arraypath[0]) else default
+        return getIn(d.get(arraypath[0]), arraypath[1:], default) \
+            if d.get(arraypath[0]) else default
 
 def reorganizeList(lst, idxs, out_of_range=None):
     # functions for getting a specific index 
