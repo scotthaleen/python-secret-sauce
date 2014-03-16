@@ -46,16 +46,23 @@ class rollin(object):
     this is a poor mans rolling file appender
     TODO maybe accept a generator function for incrementing file names
     must be infinite or a cycle
+    TODO add optional event function to be triggered on file change 
+    (useful if you would like to automatically move the files when 
+    done being written too)
     '''
     def __init__(self, directory, filename, extension, limit_megabytes=10):
         self.directory = directory
         self.filename = filename
         self.limit_bytes = limit_megabytes*1024*1024
         self.gen = numbers()
+        self.rotate = False
 
     def open(self):
         sz = "%s/%s_%s.%s" % (self.directory, self.filename, self.gen.next(), self.extension)
         self.f = open(sz, 'a+b')
+
+    def rotate():
+        self.rotate = True
 
     def __enter__(self):
         self.open()
@@ -68,7 +75,8 @@ class rollin(object):
         self.f.close()
         
     def write(self,data):
-        if self.f.tell() > self.limit_bytes:
+        if self.rotate or (self.f.tell() > self.limit_bytes):
+            self.rotate = False
             self.close()
             self.open()
         self.f.write(data)
