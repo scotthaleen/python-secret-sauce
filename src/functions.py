@@ -78,7 +78,7 @@ def utf8(sz):
 def partition(l, n):
     """ 
     Yield successive n-sized partitions from l.
-    >>> list(partition(range(1,10),2))
+    >>> partition(range(1,10),2)
     [[1, 2], [3, 4], [5, 6], [7, 8], [9]]
     """
     def _part():
