@@ -31,15 +31,6 @@ def rm(filePath):
     if os.path.isfile(filePath):
         os.remove(filePath)
 
-def partition(l, n):
-    """ 
-    Yield successive n-sized partitions from l.
-    >>> list(partition(range(1,10),2))
-    [[1, 2], [3, 4], [5, 6], [7, 8], [9]]
-    """
-    for i in xrange(0, len(l), n):
-        yield l[i:i+n]
-
 class rollin(object):
     '''
     rolling file writer 

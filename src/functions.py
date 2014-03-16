@@ -75,6 +75,19 @@ def dec(n):
 def utf8(sz):
     return sz.encode('utf-8')
 
+def partition(l, n):
+    """ 
+    Yield successive n-sized partitions from l.
+    >>> list(partition(range(1,10),2))
+    [[1, 2], [3, 4], [5, 6], [7, 8], [9]]
+    """
+    def _part():
+        for i in xrange(0, len(l), n):
+            yield l[i:i+n]
+    #I prefer it to be a list instead of generator
+    return [i for i in _part()]
+
+
 # from julia
 def mapreduce(mapFn, reduceFn, items):
     return reduce(reduceFn, map(mapFn, items))
