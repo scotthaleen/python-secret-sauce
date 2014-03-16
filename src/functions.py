@@ -79,6 +79,22 @@ def utf8(sz):
 def mapreduce(mapFn, reduceFn, items):
     return reduce(reduceFn, map(mapFn, items))
 
+# alpha
+def wrapwith(object):
+    '''
+    dynamically create a with statement object for closed-over resource
+    '''
+    def __init__(self, openfn, closefn):
+        self.openfn = openfn
+        self.closefn = closefn
+    
+    def __enter__(self):
+        return self.openfn()
+
+    def __exit__(self, type, value, traceback):
+        self.closefn()
+
+
 def juxt_all(predicates, obj):
     '''
     run a juxtaposition of predicates against an object return True 
