@@ -5,7 +5,7 @@ functions
 '''
 def identity(x): return x
 
-def noop(): pass
+def noop(*args, **kwargs): pass
 
 def head(arr):
     return arr[0]
