@@ -13,7 +13,7 @@ def head(arr):
 def empty(arr):
     return not arr
 
-def tail(arr):
+def rest(arr):
     return arr[1:]
 
 def last(arr):
