@@ -24,7 +24,7 @@ def last(arr):
         return None
 
 def nth(arr, i, out_of_range=None):
-    if len(arr) >= i:
+    if len(arr) > i:
         return arr[i]
     return out_of_range
 
