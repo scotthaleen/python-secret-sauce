@@ -31,6 +31,20 @@ def rm(filePath):
     if os.path.isfile(filePath):
         os.remove(filePath)
 
+def rmrf(directory):
+    ignore_errors = True
+    shutil.rmtree(directory, ignore_errors)
+
+def mv(src, dest):
+    shutil.move(src, dest)
+
+def cp(src, dest):
+    shutil.copyfile(src, dest)
+
+def mkdir(path):
+    os.makedirs(path)
+
+
 class rollin(object):
     '''
     rolling file writer 
