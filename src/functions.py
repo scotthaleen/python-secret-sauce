@@ -173,5 +173,16 @@ def reductions(f, seed, coll):
     return accum
 
 
+def split_on_condition(pred, coll):
+    '''
+    apply a predicate to each item in a collection returning a tuple-2 of the items that (pass,fail) condition
+    split_on_condition(lambda x: x % 2 == 0, range(10))
+    ;; ([0, 2, 4, 6, 8], [1, 3, 5, 7, 9])
+    '''
+    truthy, falsy = [], []
+    for item in coll:
+        (truthy if pred(item) else falsy).append(item)
+    return (truthy,falsy)
+
 # return a snowman
 def snowman(): return u'☃' 
