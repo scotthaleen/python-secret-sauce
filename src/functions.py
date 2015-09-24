@@ -134,5 +134,44 @@ def juxt_any(predicates, obj):
             return True
     return False
 
+def select_keys(o, keys=[]):
+    '''
+    given a map build a new map with only selected keys
+    select_keys({'a': 1, 'b': 2, 'c': 3}, keys=['a','b'])
+    ;; {'a': 1, 'b': 2}
+    '''
+    rtn = {}
+    for k in keys:
+        if k in o:
+            rtn[k] = o[k]
+    return rtn
+
+def update_in(o, k, fn):
+    '''
+    given a map update the specific key with the applied function to the key
+    update_in({'a': 1}, 'a', lambda x: x+1)
+    ;; {'a': 2 } 
+    '''
+    if k in o:
+        o[k]= fn(o[k])
+    return o
+
+def reductions(f, seed, coll):
+    '''
+    like reduce but returns itermediate values of f applied to coll starting with seed
+    reductions(lambda a,b: a+b, 0, [1,2,3,4])
+    ;; [0, 1, 3, 6, 10]
+    '''
+    if not coll:
+        return [seed]
+    accum = [seed]
+    last = seed
+    for item in coll:
+        next_ = f(last, item)
+        accum.append(next_)
+        last = next_
+    return accum
+
+
 # return a snowman
 def snowman(): return u'☃' 
