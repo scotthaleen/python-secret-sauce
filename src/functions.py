@@ -124,7 +124,7 @@ def juxt_all(predicates, obj):
 def juxt_any(predicates, obj):
     '''
     reverse of juxt_all - returns immediately on first True
-    returns False if no predicates passn
+    returns False if no predicates pass
     '''
     def genfn():
         for p in predicates:
