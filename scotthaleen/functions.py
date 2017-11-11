@@ -3,34 +3,46 @@
 '''
 functions
 '''
-def identity(x): return x
 
-def noop(*args, **kwargs): pass
+
+def identity(x):
+    return x
+
+
+def noop(*args, **kwargs):
+    pass
+
 
 def head(arr):
     return arr[0]
 
+
 def empty(arr):
     return not arr
+
 
 def rest(arr):
     return arr[1:]
 
+
 def last(arr):
-    l = arr[-1:]
-    if l:
-        return l[0]
+    xs = arr[-1:]
+    if xs:
+        return xs[0]
     else:
         return None
+
 
 def nth(arr, i, out_of_range=None):
     if len(arr) > i:
         return arr[i]
     return out_of_range
 
+
 def juxt(*funs):
     ''' juxtaposition '''
     return lambda *args: [fn(*args) for fn in funs]
+
 
 #
 # TODO
@@ -44,53 +56,60 @@ def getIn(d, arraypath, default=None):
     Take array as the path to a dict item and return the item or default if path does not exist.
     '''
     if not d:
-        return d 
+        return d
     if not arraypath:
         return d
     else:
         return getIn(d.get(arraypath[0]), arraypath[1:], default) \
             if d.get(arraypath[0]) else default
 
+
 def reorganizeList(lst, idxs, out_of_range=None):
-    # functions for getting a specific index 
+    # functions for getting a specific index
     n = lambda i: lambda l: nth(l, i, out_of_range)
     # function to apply all index functions to a list
     fn = juxt(*map(n, idxs))
     return fn(lst)
 
+
 # TODO
-#def curry(fn):
+# def curry(fn):
 #    pass
 
 # TODO
 # def partial(fn, args):
 #     pass
 
+
 def inc(n):
-    return n+1
+    return n + 1
+
 
 def dec(n):
-    return n-1
+    return n - 1
+
 
 def utf8(sz):
     return sz.encode('utf-8')
 
+
 def partition(l, n):
-    """ 
+    """
     Yield successive n-sized partitions from l.
     >>> partition(range(1,10),2)
     [[1, 2], [3, 4], [5, 6], [7, 8], [9]]
     """
     def _part():
         for i in xrange(0, len(l), n):
-            yield l[i:i+n]
-    #I prefer it to be a list instead of generator
+            yield l[i: i + n]
+    # I prefer it to be a list instead of generator
     return [i for i in _part()]
 
 
 # from julia
 def mapreduce(mapFn, reduceFn, items):
     return reduce(reduceFn, map(mapFn, items))
+
 
 # alpha
 def wrapwith(object):
@@ -100,7 +119,7 @@ def wrapwith(object):
     def __init__(self, openfn, closefn):
         self.openfn = openfn
         self.closefn = closefn
-    
+
     def __enter__(self):
         return self.openfn()
 
@@ -110,7 +129,7 @@ def wrapwith(object):
 
 def juxt_all(predicates, obj):
     '''
-    run a juxtaposition of predicates against an object return True 
+    run a juxtaposition of predicates against an object return True
     if all pass, exits immediately when first False is encountered
     '''
     def genfn():
@@ -120,6 +139,7 @@ def juxt_all(predicates, obj):
         if not x:
             return False
     return True
+
 
 def juxt_any(predicates, obj):
     '''
@@ -134,6 +154,7 @@ def juxt_any(predicates, obj):
             return True
     return False
 
+
 def select_keys(o, keys=[]):
     '''
     given a map build a new map with only selected keys
@@ -146,15 +167,17 @@ def select_keys(o, keys=[]):
             rtn[k] = o[k]
     return rtn
 
+
 def update_in(o, k, fn):
     '''
     given a map update the specific key with the applied function to the key
     update_in({'a': 1}, 'a', lambda x: x+1)
-    ;; {'a': 2 } 
+    ;; {'a': 2 }
     '''
     if k in o:
-        o[k]= fn(o[k])
+        o[k] = fn(o[k])
     return o
+
 
 def reductions(f, seed, coll):
     '''
@@ -182,7 +205,9 @@ def split_on_condition(pred, coll):
     truthy, falsy = [], []
     for item in coll:
         (truthy if pred(item) else falsy).append(item)
-    return (truthy,falsy)
+    return (truthy, falsy)
+
 
 # return a snowman
-def snowman(): return u'☃' 
+def snowman():
+    return u'☃'

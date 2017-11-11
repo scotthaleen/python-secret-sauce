@@ -3,8 +3,9 @@
 import signal
 
 '''
-slick https://gist.github.com/nonZero/2907502
+https://gist.github.com/nonZero/2907502
 '''
+
 
 class Interruptable(object):
     def __init__(self, sig=signal.SIGINT):
